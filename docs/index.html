@@ -27,98 +27,8 @@ figcaption { margin-top: 8px; color: #3e4c59; }
 <h1>GA/SA 特徵篩選中文彙整報告</h1>
 <p class="meta">產生時間：2026-06-15 14:42:08<br>輸出資料夾：results\aggregate_resume_20260615_135013</p>
 <section>
-<h2>Word 需求對照</h2>
-<ul>
-<li>背景與研究問題：以 IEEE-CIS fraud detection 做特徵篩選，評估 AUC、特徵數、穩定性與執行時間。</li>
-<li>資料與前處理：讀取 train_transaction.csv；GA/SA 搜尋使用 20,000 筆 stratified proxy rows；final CV 使用完整 train_transaction.csv。</li>
-<li>方法與 fitness：比較 GA、SA、Random Search、AllSearchFeatures、Top-K MI，fitness = AUC - lambda * selected_ratio。</li>
-<li>Word 表格參數：GA population 40/generation 60；SA calibration 100/alpha 0.98/iterations 5000；lambda 使用 0、0.05、0.10、0.20。</li>
-<li>實驗比較：輸出 final CV AUC、fitness、selected_count、時間、multi-seed mean/std、GA/SA Jaccard overlap。</li>
-<li>圖表：包含 convergence、feature importance/selection、Pareto、lambda sensitivity 四張圖。</li>
-</ul>
-<p class="note">這份 notebook 的 `word_strict` preset 是正式版；若改成 smoke/quick/standard，則只適合測試環境，不適合交 Word 要求。</p>
-</section>
-
-<section>
-<h2>完整性檢查結果</h2>
-<ul>
-<li>資料與前處理：使用 train_transaction.csv、20,000 筆 stratified proxy rows、MI Top 150，符合 Word 要求。</li>
-<li>方法設定：GA、SA、lambda、fitness、baseline、multi-seed、final full-data 5-fold CV 都已包含。</li>
-<li>圖表：Word 要求的四張圖皆已內嵌在本 HTML，不需另外開圖檔。</li>
-<li>最終評估：三個正式 run 均使用完整 train_transaction.csv，final rows = 590,540，final CV = 5。</li>
-</ul>
-<p class="note">注意：三個 seed 的 Random Search 次數不完全一致：seed 7 為 2400 次，seed 42/2026 為 5000 / 5000 次。GA/SA 的主要設定一致；若要讓 Random Search 跨 seed 完全公平，可補跑 seed 7 的 5000 次版本後重新彙整。</p>
-</section>
-<section>
-<h2>實際執行設定</h2>
-<table class="dataframe data-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>run</th>
-      <th>seed</th>
-      <th>preset</th>
-      <th>proxy rows</th>
-      <th>search features</th>
-      <th>random trials</th>
-      <th>GA</th>
-      <th>SA iterations</th>
-      <th>inner CV</th>
-      <th>final rows</th>
-      <th>final CV</th>
-      <th>device</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>run_20260614_123407</td>
-      <td>7</td>
-      <td>word_strict</td>
-      <td>20000</td>
-      <td>150</td>
-      <td>2400</td>
-      <td>40x60</td>
-      <td>5000</td>
-      <td>5</td>
-      <td>590540</td>
-      <td>5</td>
-      <td>cpu</td>
-    </tr>
-    <tr>
-      <td>run_20260615_005758</td>
-      <td>42</td>
-      <td>word_strict</td>
-      <td>20000</td>
-      <td>150</td>
-      <td>5000</td>
-      <td>40x60</td>
-      <td>5000</td>
-      <td>5</td>
-      <td>590540</td>
-      <td>5</td>
-      <td>cpu</td>
-    </tr>
-    <tr>
-      <td>run_20260615_080345</td>
-      <td>2026</td>
-      <td>word_strict</td>
-      <td>20000</td>
-      <td>150</td>
-      <td>5000</td>
-      <td>40x60</td>
-      <td>5000</td>
-      <td>5</td>
-      <td>590540</td>
-      <td>5</td>
-      <td>cpu</td>
-    </tr>
-  </tbody>
-</table>
-</section>
-
-
-<section>
 <h2>主要指標快速比較</h2>
-<p class="note">Word 要求比較「最終 AUC」與「選取特徵數」。下表把主要方法的平均 final AUC、fitness、平均選取特徵數與搜尋時間集中列出，方便快速判讀。</p>
+<p class="note">下表整理主要方法的平均 final AUC、fitness、平均選取特徵數與搜尋時間，方便快速判讀模型表現與特徵數 trade-off。備註：Random Search 的搜尋次數跨 seed 不完全一致，seed 7 為 2400 次，seed 42/2026 為 5000 次。</p>
 <table class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
@@ -319,51 +229,6 @@ figcaption { margin-top: 8px; color: #3e4c59; }
 <ul>
 <li>lambda=0.0: 平均 AUC 最佳為 <b>AllSearchFeatures</b> (0.8572 ± 0.0046)；平均 fitness 最佳為 <b>AllSearchFeatures</b> (0.8572 ± 0.0046)。</li><li>lambda=0.05: 平均 AUC 最佳為 <b>AllSearchFeatures</b> (0.8572 ± 0.0046)；平均 fitness 最佳為 <b>GA</b> (0.8341 ± 0.0052)。</li><li>lambda=0.1: 平均 AUC 最佳為 <b>AllSearchFeatures</b> (0.8572 ± 0.0046)；平均 fitness 最佳為 <b>GA</b> (0.8217 ± 0.0042)。</li><li>lambda=0.2: 平均 AUC 最佳為 <b>AllSearchFeatures</b> (0.8572 ± 0.0046)；平均 fitness 最佳為 <b>SA</b> (0.8175 ± 0.0023)。</li>
 </ul>
-</section>
-<section>
-<h2>執行的 Run</h2>
-<table class="dataframe data-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>run_dir</th>
-      <th>preset</th>
-      <th>seed</th>
-      <th>mode</th>
-      <th>device</th>
-      <th>rows</th>
-      <th>search_features</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>results\run_20260614_123407</td>
-      <td>word_strict</td>
-      <td>7</td>
-      <td>real</td>
-      <td>cpu</td>
-      <td>20000</td>
-      <td>150</td>
-    </tr>
-    <tr>
-      <td>results\run_20260615_005758</td>
-      <td>word_strict</td>
-      <td>42</td>
-      <td>real</td>
-      <td>cpu</td>
-      <td>20000</td>
-      <td>150</td>
-    </tr>
-    <tr>
-      <td>results\run_20260615_080345</td>
-      <td>word_strict</td>
-      <td>2026</td>
-      <td>real</td>
-      <td>cpu</td>
-      <td>20000</td>
-      <td>150</td>
-    </tr>
-  </tbody>
-</table>
 </section>
 <section>
 <h2>彙整指標</h2>
@@ -966,7 +831,7 @@ figcaption { margin-top: 8px; color: #3e4c59; }
 </section>
 <section>
 <h2>完整指標明細</h2>
-<p class="note">Word 沒有要求報告列出 mask_bits；mask_bits 是程式內部用來重建 150 維 binary feature mask 的原始紀錄。本 HTML 為了可讀性不顯示該欄，完整欄位仍保留在 all_metrics.csv。</p>
+<p class="note">mask_bits 是程式內部用來重建 150 維 binary feature mask 的原始紀錄。本 HTML 為了可讀性不顯示該欄，完整欄位仍保留在 all_metrics.csv。</p>
 <table class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
