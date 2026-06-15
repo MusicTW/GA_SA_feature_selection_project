@@ -80,7 +80,7 @@ GA_SA_feature_selection_project/data/raw/train_transaction.csv
 先進入 package 資料夾：
 
 ```powershell
-cd D:\ML期末\GA_SA_feature_selection_project
+cd GA_SA_feature_selection_project
 ```
 
 ### 1. 先跑 smoke 測試
