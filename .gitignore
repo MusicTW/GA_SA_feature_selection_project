@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Kaggle data is too large for GitHub. Put local CSV files here after cloning.
+data/raw/*
+!data/raw/.gitkeep
+data/cache/
+
+# Keep only the final report aggregate in Git. Exclude raw per-run outputs.
+results/*
+!results/aggregate_resume_20260615_135013/
+!results/aggregate_resume_20260615_135013/**
+
+# Downloaded comparison notebooks from other Colab links are local references.
+external_versions/
+
+*.zip

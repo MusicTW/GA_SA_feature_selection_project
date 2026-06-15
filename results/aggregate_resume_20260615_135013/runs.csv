@@ -1,0 +1,4 @@
+﻿run_dir,preset,seed,mode,device,rows,search_features
+D:\ML期末\GA_SA_feature_selection_project\results\run_20260614_123407,word_strict,7,real,cpu,20000,150
+D:\ML期末\GA_SA_feature_selection_project\results\run_20260615_005758,word_strict,42,real,cpu,20000,150
+D:\ML期末\GA_SA_feature_selection_project\results\run_20260615_080345,word_strict,2026,real,cpu,20000,150
