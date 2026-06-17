@@ -18,7 +18,7 @@
 - GA/SA 方法描述：已依 Word 表格參數實作。
 - Baseline：包含 Random Search、AllSearchFeatures、TopK_MI。
 - 穩定性：multi-seed 彙整包含 mean/std 與 GA/SA Jaccard overlap。
-- 圖表：四張報告用圖在 figures_for_report/。
+- 圖表：四張報告用圖在 figures_for_report/，皆為 3-seed 彙整圖（seed 7、42、2026；mean/std 或選取頻率）。
 
 ## Multi-seed Runs
 
@@ -87,5 +87,5 @@ results\run_20260615_080345 word_strict  2026 real    cpu 20000              150
 - aggregate_metrics.csv：各 lambda/method 的平均與標準差。
 - all_metrics.csv：所有 run 的完整 metric row。
 - feature_overlap_all_runs.csv：每個 seed 的 GA/SA Jaccard overlap。
-- figures_for_report/：Word 報告需要的四張圖。
+- figures_for_report/：Word 報告需要的四張 3-seed 彙整圖。
 - GA_SA_report_summary_zh_TW.html：中文 HTML 彙整。
