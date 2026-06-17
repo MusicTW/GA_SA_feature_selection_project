@@ -232,6 +232,43 @@ figcaption { margin-top: 8px; color: #3e4c59; }
 </section>
 <section>
 <h2>彙整指標</h2>
+<p class="note">欄位中文說明：<b>final_cv_auc_mean</b> 是完整 train_transaction final 5-fold CV 的平均 AUC；<b>selected_count_mean</b> 是平均選取特徵數；<b>final_cv_fitness_mean</b> 是平均最終 fitness，計算方式為 AUC - λ × 選取特徵比例。</p>
+<table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>欄位</th>
+      <th>中文意思</th>
+      <th>用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>final_cv_auc_mean</td>
+      <td>最終 5-fold CV 平均 AUC</td>
+      <td>看模型用該特徵子集後的分類能力，越高越好。</td>
+    </tr>
+    <tr>
+      <td>selected_count_mean</td>
+      <td>平均選取特徵數</td>
+      <td>看方法最後保留多少特徵，越少代表模型越精簡。</td>
+    </tr>
+    <tr>
+      <td>final_cv_fitness_mean</td>
+      <td>最終平均 fitness</td>
+      <td>同時考慮 AUC 與特徵數懲罰，用來判斷 trade-off。</td>
+    </tr>
+    <tr>
+      <td>seconds_mean</td>
+      <td>平均搜尋秒數</td>
+      <td>看方法花多少時間找到特徵子集。</td>
+    </tr>
+    <tr>
+      <td>std</td>
+      <td>標準差</td>
+      <td>衡量不同 seed 的穩定性，越小代表結果越穩定。</td>
+    </tr>
+  </tbody>
+</table>
 <table class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
