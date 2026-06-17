@@ -232,7 +232,7 @@ figcaption { margin-top: 8px; color: #3e4c59; }
 </section>
 <section>
 <h2>彙整指標</h2>
-<p class="note">欄位中文說明：<b>final_cv_auc_mean</b> 是完整 train_transaction final 5-fold CV 的平均 AUC；<b>selected_count_mean</b> 是平均選取特徵數；<b>final_cv_fitness_mean</b> 是平均最終 fitness，計算方式為 AUC - λ × 選取特徵比例。</p>
+<p class="note">欄位中文說明：下表對應彙整指標的所有欄位。mean 是不同 seed/run 的平均值；std 是不同 seed/run 的標準差，用來看穩定性。</p>
 <table class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
@@ -243,9 +243,39 @@ figcaption { margin-top: 8px; color: #3e4c59; }
   </thead>
   <tbody>
     <tr>
+      <td>lambda</td>
+      <td>λ 懲罰係數</td>
+      <td>控制特徵數懲罰強度；λ 越大，越偏好少特徵。</td>
+    </tr>
+    <tr>
+      <td>method</td>
+      <td>方法名稱</td>
+      <td>比較 GA、SA、RandomSearch、AllSearchFeatures、TopK_MI 等方法。</td>
+    </tr>
+    <tr>
+      <td>n_runs</td>
+      <td>彙整 run 數</td>
+      <td>代表該方法與 λ 組合納入幾個 seed/run；正式主要方法通常是 3。</td>
+    </tr>
+    <tr>
       <td>final_cv_auc_mean</td>
       <td>最終 5-fold CV 平均 AUC</td>
-      <td>看模型用該特徵子集後的分類能力，越高越好。</td>
+      <td>特徵子集套用到完整 train_transaction 後的平均 AUC，越高越好。</td>
+    </tr>
+    <tr>
+      <td>final_cv_auc_std</td>
+      <td>最終 AUC 標準差</td>
+      <td>衡量不同 seed 的 final AUC 穩定性，越小代表越穩。</td>
+    </tr>
+    <tr>
+      <td>final_cv_fitness_mean</td>
+      <td>最終平均 fitness</td>
+      <td>以 final AUC 重新計算 AUC - λ × 選取特徵比例，用來看 trade-off。</td>
+    </tr>
+    <tr>
+      <td>final_cv_fitness_std</td>
+      <td>最終 fitness 標準差</td>
+      <td>衡量不同 seed 的 final fitness 穩定性，越小代表越穩。</td>
     </tr>
     <tr>
       <td>selected_count_mean</td>
@@ -253,19 +283,24 @@ figcaption { margin-top: 8px; color: #3e4c59; }
       <td>看方法最後保留多少特徵，越少代表模型越精簡。</td>
     </tr>
     <tr>
-      <td>final_cv_fitness_mean</td>
-      <td>最終平均 fitness</td>
-      <td>同時考慮 AUC 與特徵數懲罰，用來判斷 trade-off。</td>
+      <td>selected_count_std</td>
+      <td>選取特徵數標準差</td>
+      <td>衡量不同 seed 選到的特徵數是否穩定，越小代表數量越穩。</td>
+    </tr>
+    <tr>
+      <td>inner_auc_mean</td>
+      <td>搜尋階段平均 AUC</td>
+      <td>在 proxy dataset 搜尋特徵時的 inner CV AUC，不是最終完整資料 AUC。</td>
+    </tr>
+    <tr>
+      <td>inner_auc_std</td>
+      <td>搜尋階段 AUC 標準差</td>
+      <td>衡量不同 seed 在 proxy 搜尋階段的 AUC 穩定性。</td>
     </tr>
     <tr>
       <td>seconds_mean</td>
       <td>平均搜尋秒數</td>
       <td>看方法花多少時間找到特徵子集。</td>
-    </tr>
-    <tr>
-      <td>std</td>
-      <td>標準差</td>
-      <td>衡量不同 seed 的穩定性，越小代表結果越穩定。</td>
     </tr>
   </tbody>
 </table>
