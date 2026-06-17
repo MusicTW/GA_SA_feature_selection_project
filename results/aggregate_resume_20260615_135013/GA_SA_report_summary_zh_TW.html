@@ -28,7 +28,7 @@ figcaption { margin-top: 8px; color: #3e4c59; }
 <p class="meta">產生時間：2026-06-15 14:42:08<br>輸出資料夾：results\aggregate_resume_20260615_135013</p>
 <section>
 <h2>主要指標快速比較</h2>
-<p class="note">下表整理主要方法的平均 final AUC、fitness、平均選取特徵數與搜尋時間，方便快速判讀模型表現與特徵數 trade-off。備註：Random Search 的搜尋次數跨 seed 不完全一致，seed 7 為 2400 次，seed 42/2026 為 5000 次。</p>
+<p class="note">下表整理主要方法的平均 final AUC、fitness、平均選取特徵數與搜尋時間，方便快速判讀模型表現與特徵數 trade-off。平均選取特徵數是多個 seed/run 的平均，因此可能出現小數；單次 run 實際選到的特徵數仍然是整數。備註：Random Search 的搜尋次數跨 seed 不完全一致，seed 7 為 2400 次，seed 42/2026 為 5000 次。</p>
 <table class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
@@ -280,7 +280,7 @@ figcaption { margin-top: 8px; color: #3e4c59; }
     <tr>
       <td>selected_count_mean</td>
       <td>平均選取特徵數</td>
-      <td>看方法最後保留多少特徵，越少代表模型越精簡。</td>
+      <td>多個 seed/run 的選取特徵數平均值，可能是小數；單次 run 的 selected_count 仍是整數。</td>
     </tr>
     <tr>
       <td>selected_count_std</td>
